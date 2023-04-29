@@ -71,6 +71,7 @@ public class QuestionManage implements IOFileInterface<Question> {
                 System.out.println(e.getMessage());
             }
         } while (correctAnswerIndex <= -1 || correctAnswerIndex > 3);
+        correctAnswerIndex += 1;
         questions.add(new Question(id, questionTitle, answerOptions, correctAnswerIndex));
         writeFile(questions, questionPath);
     }

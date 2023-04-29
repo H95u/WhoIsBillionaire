@@ -69,18 +69,30 @@ public class GamePlayManage implements IOFileInterface<Question> {
         createRandomQuestion();
         gamePlay.startGame();
         int index = 0;
+        showGamePlay(index);
+    }
+
+    private void showGamePlay(int index) {
         while (gamePlay.isPlaying() && index < randomQuestions.size()) {
             scoreBoard.displayScore();
-            randomQuestions.get(index).displayQuestion();
-            int answer = Integer.parseInt(scanner.nextLine()) - 1;
-            if (randomQuestions.get(index).getCorrectAnswerIndex() == answer) {
-                gamePlay.updateScoreBoard(getBounty(index));
-                index++;
+            Question currentQuestion = randomQuestions.get(index);
+            currentQuestion.displayQuestion(index);
+            int answer = Integer.parseInt(scanner.nextLine());
+            if (answer == 0) {
+                QuestionDisplayHelper.showHelpList();
             } else {
-                gamePlay.endGame();
-                gamePlay.resetGame();
-                System.out.println("Game over !!");
-                break;
+                if (currentQuestion.getCorrectAnswerIndex() == answer) {
+                    gamePlay.updateScoreBoard(getBounty(index));
+                    index++;
+                } else if (answer >= 5 && answer <= 8) {
+                    QuestionDisplayHelper.useHelp(currentQuestion, answer, index);
+                } else {
+                    gamePlay.endGame();
+                    gamePlay.resetGame();
+                    QuestionDisplayHelper.resetHelpList();
+                    System.out.println("Game over !!");
+                    break;
+                }
             }
         }
     }
@@ -111,4 +123,5 @@ public class GamePlayManage implements IOFileInterface<Question> {
         };
         return bounty[index];
     }
+
 }

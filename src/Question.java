@@ -55,13 +55,7 @@ public class Question implements Serializable {
                 questionTitle;
     }
 
-    public void displayQuestion() {
-        System.out.printf("%s\n%s%-20s%s\n%s%-20s%s\n",
-                "Question " + id + " : " + questionTitle + " ? ",
-                "1." + answerOptions[0], "", "2." + answerOptions[1],
-                "3." + answerOptions[2], "", "4." + answerOptions[3]
-                        +"\n"+ "Select your answer !!"
-        );
+    public void displayQuestion(int index) {
+        QuestionDisplayHelper.displayQuestion(this, index);
     }
-
 }
