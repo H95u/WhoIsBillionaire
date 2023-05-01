@@ -11,14 +11,16 @@ public class GamePlayManage implements IOFileInterface<Question> {
     private GamePlay gamePlay;
     private ScoreBoard scoreBoard;
     private QuestionManage questionManage;
+    private LeaderBoardManage leaderBoardManage;
     private Scanner scanner;
 
-    public GamePlayManage(QuestionManage questionManage) {
+    public GamePlayManage(QuestionManage questionManage, LeaderBoardManage leaderBoardManage) {
         this.questions = questionManage.readFile(questionPath);
         this.randomQuestions = readFile(randomQuestionPath);
         this.scoreBoard = new ScoreBoard();
         this.gamePlay = new GamePlay(randomQuestions, scoreBoard);
         this.questionManage = questionManage;
+        this.leaderBoardManage = leaderBoardManage;
         scanner = new Scanner(System.in);
     }
 
@@ -82,11 +84,15 @@ public class GamePlayManage implements IOFileInterface<Question> {
                 if (index == 15) {
                     System.out.println("Congratulation !! You have won the game !! ");
                     String userName = getLoggingUserName();
-                    writeFile(userName, scoreBoard.getCurrentScore(), scoreBoard.getMoney());
+                    LeaderBoard leaderBoard = new LeaderBoard(userName, scoreBoard.getCurrentScore(), scoreBoard.getMoney());
+                    leaderBoardManage.addLeaderBoard(leaderBoard);
                 }
             } else if (answer >= 5 && answer <= 8) {
-                QuestionDisplayHelper.useHelp(currentQuestion, answer, index);
+                QuestionDisplayHelper.useHelp(currentQuestion, answer);
             } else {
+                String userName = getLoggingUserName();
+                LeaderBoard leaderBoard = new LeaderBoard(userName, scoreBoard.getCurrentScore(), scoreBoard.getMoney());
+                leaderBoardManage.addLeaderBoard(leaderBoard);
                 gamePlay.endGame();
                 gamePlay.resetGame();
                 QuestionDisplayHelper.resetHelpList();
@@ -122,33 +128,6 @@ public class GamePlayManage implements IOFileInterface<Question> {
         };
         return bounty[index];
     }
-
-    public void writeFile(String userName, int score, double money) {
-        File file = new File("C:\\Users\\Hieu's PC\\Desktop\\casestudy\\login\\src\\data\\leaderBoard.txt");
-        try {
-            BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(file));
-            bufferedWriter.write(userName + "," + score + "," + money + "\n");
-            bufferedWriter.close();
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    public void showLeaderBoard() {
-        File file = new File("C:\\Users\\Hieu's PC\\Desktop\\casestudy\\login\\src\\data\\leaderBoard.txt");
-        String[] str = new String[0];
-        try {
-            BufferedReader bufferedReader = new BufferedReader(new FileReader(file));
-            String c;
-            while ((c = bufferedReader.readLine()) != null) {
-                str = c.split(",");
-            }
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-        System.out.printf("%-20s%-20s%-20s%n%-20s%-20s%s", "Name", "Score", "Money", str[0], str[1], str[2] + "\n");
-    }
-
 
     public String getLoggingUserName() {
         ArrayList<Account> loggingUser = new ArrayList<>();

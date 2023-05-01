@@ -92,7 +92,6 @@ public class QuestionManage implements IOFileInterface<Question> {
     }
 
     public void deleteQuestion() {
-        displayAllQuestion();
         Question deleteQuestion = getQuestionById();
         if (deleteQuestion == null) System.out.println("Not have that id");
         else {
