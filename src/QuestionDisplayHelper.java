@@ -1,6 +1,4 @@
-import java.util.Arrays;
-import java.util.TreeMap;
-import java.util.Random;
+import java.util.*;
 
 public class QuestionDisplayHelper {
     private static TreeMap<Integer, String> helpList = new TreeMap<>();
@@ -14,7 +12,7 @@ public class QuestionDisplayHelper {
                 "Question " + (index + 1) + " : " + question.getQuestionTitle() + " ? ",
                 "1." + question.getAnswerOptions()[0], "", "2." + question.getAnswerOptions()[1],
                 "3." + question.getAnswerOptions()[2], "", "4." + question.getAnswerOptions()[3]
-                        + "\n" + "Select your answer !!" + " Type 0 to use help !!"
+                        + "\n" + "Select your answer !!"
         );
     }
 
@@ -30,37 +28,55 @@ public class QuestionDisplayHelper {
     }
 
     public static void displayQuestionUse5050(Question question, int index) {
-        Random random = new Random();
-        int correctAnswer = question.getCorrectAnswerIndex();
-        int wrongAnswer = random.nextInt(3);
-        while (wrongAnswer == correctAnswer) {
-            wrongAnswer = random.nextInt(3);
-        }
-        int[] answerIndices = new int[]{correctAnswer, wrongAnswer};
-        Arrays.sort(answerIndices);
+        int correctAnswer = question.getCorrectAnswerIndex() - 1;
+        int wrongAnswer = getRandomWrongAnswerIndex(correctAnswer);
+        List<Integer> indices = Arrays.asList(correctAnswer, wrongAnswer);
+        Collections.shuffle(indices);
         System.out.printf("%s\n%s%-20s%s%s\n",
                 "Question " + (index + 1) + " : " + question.getQuestionTitle() + " ? ",
-                (answerIndices[0] + 1) + "." + question.getAnswerOptions()[answerIndices[0]], "",
-                (answerIndices[1] + 1) + "." + question.getAnswerOptions()[answerIndices[1]],
+                (indices.get(0) + 1) + "." + question.getAnswerOptions()[indices.get(0)], "",
+                (indices.get(1) + 1) + "." + question.getAnswerOptions()[indices.get(1)],
                 "\nSelect your answer !!\n");
     }
 
+    private static int getRandomWrongAnswerIndex(int correctAnswerIndex) {
+        Random random = new Random();
+        int wrongAnswerIndex = random.nextInt(3);
+        while (wrongAnswerIndex == correctAnswerIndex) {
+            wrongAnswerIndex = random.nextInt(3);
+        }
+        return wrongAnswerIndex;
+    }
+
+
     public static void showHelpList() {
         System.out.println("Available helps:");
-        for (int key : helpList.keySet()) {
-            System.out.printf("%d. %s\n", key, helpList.get(key));
+        if (helpList.isEmpty()) {
+            System.out.println("You have no help !!");
+        } else {
+            for (int key : helpList.keySet()) {
+                System.out.printf("%d. %s\n", key, helpList.get(key));
+            }
         }
         System.out.println("Select help you want !!");
     }
 
     public static void useHelp(Question question, int answer, int index) {
         if (answer >= 5 && answer <= 8) {
-            if (answer == 5) {
-                displayQuestionUse5050(question, index);
-                helpList.remove(answer);
+            if (helpList.isEmpty()) {
+                System.out.println("You have no help !!");
             } else {
-                displayQuestionUseHelp(question, index);
-                helpList.remove(answer);
+                if (helpList.get(answer) == null) {
+                    System.out.println("Wrong input !!");
+                } else {
+                    if (answer == 5) {
+                        displayQuestionUse5050(question, index);
+                        helpList.remove(answer);
+                    } else {
+                        displayQuestionUseHelp(question, index);
+                        helpList.remove(answer);
+                    }
+                }
             }
         }
     }

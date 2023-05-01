@@ -3,14 +3,12 @@ import java.util.Scanner;
 public class Main {
     private static Scanner scanner = new Scanner(System.in);
 
-    public static void userMenu(QuestionManage questionManage, AccountManage accountManage) {
+    public static void userMenu(GamePlayManage gamePlayManage, AccountManage accountManage) {
         int choice = -1;
         do {
-            System.out.println("USER");
             System.out.println("1.Play");
             System.out.println("2.Leader board");
             System.out.println("3.Update your account");
-            System.out.println("4.Display all random question");
             System.out.println("0.Log out");
             System.out.println("PLS SELECT YOUR CHOICE!!");
             try {
@@ -20,10 +18,10 @@ public class Main {
             }
             switch (choice) {
                 case 1:
-                    GamePlayManage gamePlayManage = new GamePlayManage(questionManage);
                     gamePlayManage.startGame();
                     break;
                 case 2:
+                    gamePlayManage.showLeaderBoard();
                     break;
                 case 3:
                     accountManage.updateAccount();
@@ -73,6 +71,7 @@ public class Main {
     public static void main(String[] args) {
         AccountManage accountManage = new AccountManage();
         QuestionManage questionManage = new QuestionManage();
+        GamePlayManage gamePlayManage = new GamePlayManage(questionManage);
         int choice = -1;
         do {
             System.out.println("1. Register");
@@ -92,7 +91,7 @@ public class Main {
                 case 2:
                     String permission = accountManage.login();
                     if (permission.equals("admin")) adminMenu(accountManage, questionManage);
-                    else userMenu(questionManage, accountManage);
+                    else userMenu(gamePlayManage, accountManage);
                     break;
                 case 3:
                     accountManage.displayAllAccount();

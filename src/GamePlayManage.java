@@ -1,7 +1,4 @@
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
@@ -75,24 +72,26 @@ public class GamePlayManage implements IOFileInterface<Question> {
     private void showGamePlay(int index) {
         while (gamePlay.isPlaying() && index < randomQuestions.size()) {
             scoreBoard.displayScore();
+            QuestionDisplayHelper.showHelpList();
             Question currentQuestion = randomQuestions.get(index);
             currentQuestion.displayQuestion(index);
             int answer = Integer.parseInt(scanner.nextLine());
-            if (answer == 0) {
-                QuestionDisplayHelper.showHelpList();
-            } else {
-                if (currentQuestion.getCorrectAnswerIndex() == answer) {
-                    gamePlay.updateScoreBoard(getBounty(index));
-                    index++;
-                } else if (answer >= 5 && answer <= 8) {
-                    QuestionDisplayHelper.useHelp(currentQuestion, answer, index);
-                } else {
-                    gamePlay.endGame();
-                    gamePlay.resetGame();
-                    QuestionDisplayHelper.resetHelpList();
-                    System.out.println("Game over !!");
-                    break;
+            if (currentQuestion.getCorrectAnswerIndex() == answer) {
+                gamePlay.updateScoreBoard(getBounty(index));
+                index++;
+                if (index == 15) {
+                    System.out.println("Congratulation !! You have won the game !! ");
+                    String userName = getLoggingUserName();
+                    writeFile(userName, scoreBoard.getCurrentScore(), scoreBoard.getMoney());
                 }
+            } else if (answer >= 5 && answer <= 8) {
+                QuestionDisplayHelper.useHelp(currentQuestion, answer, index);
+            } else {
+                gamePlay.endGame();
+                gamePlay.resetGame();
+                QuestionDisplayHelper.resetHelpList();
+                System.out.println("Game over !!");
+                break;
             }
         }
     }
@@ -124,4 +123,45 @@ public class GamePlayManage implements IOFileInterface<Question> {
         return bounty[index];
     }
 
+    public void writeFile(String userName, int score, double money) {
+        File file = new File("C:\\Users\\Hieu's PC\\Desktop\\casestudy\\login\\src\\data\\leaderBoard.txt");
+        try {
+            BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(file));
+            bufferedWriter.write(userName + "," + score + "," + money + "\n");
+            bufferedWriter.close();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void showLeaderBoard() {
+        File file = new File("C:\\Users\\Hieu's PC\\Desktop\\casestudy\\login\\src\\data\\leaderBoard.txt");
+        String[] str = new String[0];
+        try {
+            BufferedReader bufferedReader = new BufferedReader(new FileReader(file));
+            String c;
+            while ((c = bufferedReader.readLine()) != null) {
+                str = c.split(",");
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        System.out.printf("%-20s%-20s%-20s%n%-20s%-20s%s", "Name", "Score", "Money", str[0], str[1], str[2] + "\n");
+    }
+
+
+    public String getLoggingUserName() {
+        ArrayList<Account> loggingUser = new ArrayList<>();
+        try {
+            FileInputStream fileInputStream = new FileInputStream
+                    ("C:\\Users\\Hieu's PC\\Desktop\\casestudy\\login\\src\\data\\loggingUserName.txt");
+            ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
+            loggingUser = (ArrayList<Account>) objectInputStream.readObject();
+            objectInputStream.close();
+            fileInputStream.close();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return loggingUser.get(0).getUserName();
+    }
 }

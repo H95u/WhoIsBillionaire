@@ -20,6 +20,14 @@ public class ScoreBoard {
         this.money += money;
     }
 
+    public double getMoney() {
+        return money;
+    }
+
+    public void setMoney(double money) {
+        this.money = money;
+    }
+
     public void displayScore() {
         System.out.println("Current score : " + currentScore);
         System.out.println("Current money : " + money);
