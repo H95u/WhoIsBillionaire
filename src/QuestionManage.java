@@ -80,7 +80,7 @@ public class QuestionManage implements IOFileInterface<Question> {
         displayAllQuestion();
         int id = -1;
         try {
-            System.out.println("Input id of account you want");
+            System.out.println("Input id of question you want");
             id = Integer.parseInt(scanner.nextLine());
         } catch (Exception e) {
             System.out.println(e.getMessage());

@@ -6,6 +6,7 @@ public class Main {
     public static void userMenu(QuestionManage questionManage, AccountManage accountManage, LeaderBoardManage leaderBoardManage) {
         int choice = -1;
         do {
+            System.out.println("\033[31m-------- USER ---------\033[0m");
             System.out.println("1.Play");
             System.out.println("2.Leader board");
             System.out.println("3.Update your account");
@@ -28,6 +29,9 @@ public class Main {
                 case 3:
                     accountManage.updateAccount();
                     break;
+                case 0:
+                    choice = 0;
+                    break;
                 default:
                     System.out.println("There is no that option!");
                     break;
@@ -38,7 +42,7 @@ public class Main {
     public static void adminMenu(AccountManage accountManage, QuestionManage questionManage, LeaderBoardManage leaderBoardManage) {
         int choice = -1;
         do {
-            System.out.println("ADMIN");
+            System.out.println("\033[31m-------- ADMIN ---------\033[0m");
             System.out.println("1.Delete account");
             System.out.println("2.Add question");
             System.out.println("3.Delete question");

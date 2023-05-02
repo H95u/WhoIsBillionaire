@@ -24,6 +24,7 @@ public class LeaderBoardManage implements IOFileInterface<LeaderBoard> {
 
     public void resetLeaderBoard() {
         leaderBoards.clear();
+        writeFile(leaderBoards, leaderBoardPath);
     }
 
     public void showLeaderBoard() {
