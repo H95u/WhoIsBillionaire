@@ -17,8 +17,8 @@ public class QuestionDisplayHelper {
     }
 
     public static void displayQuestionUseHelp(Question question) {
-        System.out.println("[HELP] : The correct answer is ... : " + question.getCorrectAnswerIndex() + "." +
-                question.getAnswerOptions()[question.getCorrectAnswerIndex() - 1]);
+        System.out.println("\033[31m[HELP] : The correct answer is ... : " + question.getCorrectAnswerIndex() + "." +
+                question.getAnswerOptions()[question.getCorrectAnswerIndex() - 1] + "\033[0m");
     }
 
     public static void displayQuestionUse5050(Question question) {
@@ -43,7 +43,7 @@ public class QuestionDisplayHelper {
 
 
     public static void showHelpList() {
-        System.out.println("Available helps:");
+        System.out.println("\033[32;1mAvailable helps:");
         if (helpList.isEmpty()) {
             System.out.println("You have no help !!");
         } else {
@@ -51,8 +51,9 @@ public class QuestionDisplayHelper {
                 System.out.printf("%d. %s\n", key, helpList.get(key));
             }
         }
-        System.out.println("Select help you want !!");
+        System.out.println("Select help you want !!\033[0m");
     }
+
 
     public static void useHelp(Question question, int answer) {
         if (answer >= 5 && answer <= 8) {

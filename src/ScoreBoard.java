@@ -29,7 +29,7 @@ public class ScoreBoard {
     }
 
     public void displayScore() {
-        System.out.println("Current score : " + currentScore);
-        System.out.println("Current money : " + money);
+        System.out.println("\u001B[34mCurrent score : " + currentScore);
+        System.out.println("Current money : " + money + "\033[0m");
     }
 }

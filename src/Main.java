@@ -35,7 +35,7 @@ public class Main {
         } while (choice != 0);
     }
 
-    public static void adminMenu(AccountManage accountManage, QuestionManage questionManage) {
+    public static void adminMenu(AccountManage accountManage, QuestionManage questionManage, LeaderBoardManage leaderBoardManage) {
         int choice = -1;
         do {
             System.out.println("ADMIN");
@@ -44,6 +44,7 @@ public class Main {
             System.out.println("3.Delete question");
             System.out.println("4.display all question");
             System.out.println("5.display all account");
+            System.out.println("6.Clear leader board");
             System.out.println("0.Log out");
             System.out.println("PLS SELECT YOUR CHOICE!!");
             try {
@@ -66,6 +67,9 @@ public class Main {
                     break;
                 case 5:
                     accountManage.displayAllAccount();
+                    break;
+                case 6:
+                    leaderBoardManage.resetLeaderBoard();
                     break;
                 case 0:
                     choice = 0;
@@ -98,7 +102,7 @@ public class Main {
                     break;
                 case 2:
                     String permission = accountManage.login();
-                    if (permission.equals("admin")) adminMenu(accountManage, questionManage);
+                    if (permission.equals("admin")) adminMenu(accountManage, questionManage, leaderBoardManage);
                     else userMenu(questionManage, accountManage, leaderBoardManage);
                     break;
                 case 0:
