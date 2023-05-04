@@ -65,7 +65,7 @@ public class Account implements Serializable {
 
     @Override
     public String toString() {
-        return "model.Account{" +
+        return "Account{" +
                 "id=" + id +
                 ", userName='" + userName + '\'' +
                 ", passWord='" + passWord + '\'' +

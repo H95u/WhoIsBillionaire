@@ -43,7 +43,7 @@ public class LeaderBoard implements Comparable<LeaderBoard>, Serializable {
 
     @Override
     public String toString() {
-        return "model.LeaderBoard{" +
+        return "LeaderBoard{" +
                 "name='" + name + '\'' +
                 ", score=" + score +
                 ", money=" + money +

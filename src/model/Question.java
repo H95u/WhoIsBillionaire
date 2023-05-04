@@ -55,7 +55,7 @@ public class Question implements Serializable {
 
     @Override
     public String toString() {
-        return "model.Question : " + id + "," +
+        return "Question : " + id + "," +
                 questionTitle;
     }
 
