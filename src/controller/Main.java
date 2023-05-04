@@ -1,3 +1,10 @@
+package controller;
+
+import service.AccountManage;
+import service.GamePlayManage;
+import service.LeaderBoardManage;
+import service.QuestionManage;
+
 import java.util.Scanner;
 
 public class Main {
@@ -16,6 +23,7 @@ public class Main {
                 choice = Integer.parseInt(scanner.nextLine());
             } catch (Exception e) {
                 System.out.println(e.getMessage());
+                continue;
             }
             switch (choice) {
                 case 1:
@@ -55,6 +63,7 @@ public class Main {
                 choice = Integer.parseInt(scanner.nextLine());
             } catch (Exception e) {
                 System.out.println(e.getMessage());
+                continue;
             }
             switch (choice) {
                 case 1:
@@ -91,6 +100,7 @@ public class Main {
         LeaderBoardManage leaderBoardManage = new LeaderBoardManage();
         int choice = -1;
         do {
+            System.out.println("-------- MENU ---------");
             System.out.println("1. Register");
             System.out.println("2. Login");
             System.out.println("0. Exit");
@@ -99,6 +109,7 @@ public class Main {
                 choice = Integer.parseInt(scanner.nextLine());
             } catch (NumberFormatException e) {
                 System.err.println("Error " + e.getMessage());
+                continue;
             }
             switch (choice) {
                 case 1:

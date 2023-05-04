@@ -1,3 +1,5 @@
+package model;
+
 public class Bounty {
     private static final double QUESTION1 = 100;
     private static final double QUESTION2 = 200;

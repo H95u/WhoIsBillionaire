@@ -1,3 +1,8 @@
+package service;
+
+import model.*;
+import service.QuestionManage;
+
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Random;
@@ -64,6 +69,7 @@ public class GamePlayManage {
     private int correctAnswer(int index) {
         gamePlay.updateScoreBoard(getBounty(index));
         index++;
+        System.out.println("\033[31mExactly !! Your answer is correct !! Process to the next question !!\033[0m");
         if (index == 15) {
             System.out.println("\033[33mCongratulation !! You have won the game !!\033[0m");
             String userName = getLoggingUserName();

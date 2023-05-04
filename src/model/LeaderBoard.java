@@ -1,3 +1,5 @@
+package model;
+
 import java.io.Serializable;
 
 public class LeaderBoard implements Comparable<LeaderBoard>, Serializable {
@@ -41,7 +43,7 @@ public class LeaderBoard implements Comparable<LeaderBoard>, Serializable {
 
     @Override
     public String toString() {
-        return "LeaderBoard{" +
+        return "model.LeaderBoard{" +
                 "name='" + name + '\'' +
                 ", score=" + score +
                 ", money=" + money +

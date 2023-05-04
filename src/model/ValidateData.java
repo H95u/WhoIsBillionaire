@@ -1,3 +1,5 @@
+package model;
+
 import java.util.regex.Pattern;
 
 public class ValidateData {

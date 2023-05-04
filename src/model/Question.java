@@ -1,6 +1,10 @@
+package model;
+
+
 import java.io.Serializable;
 
 public class Question implements Serializable {
+
     private static final long serialVersionUID = 1L;
     private int id;
     private String questionTitle;
@@ -51,11 +55,16 @@ public class Question implements Serializable {
 
     @Override
     public String toString() {
-        return "Question : " + id + "," +
+        return "model.Question : " + id + "," +
                 questionTitle;
     }
 
     public void displayQuestion(int index) {
-        QuestionDisplayHelper.displayQuestion(this, index);
+        System.out.printf("%s\n%s%-20s%s\n%s%-20s%s\n",
+                "Question " + (index + 1) + " : " + getQuestionTitle() + " ? ",
+                "1." + getAnswerOptions()[0], "", "2." + getAnswerOptions()[1],
+                "3." + getAnswerOptions()[2], "", "4." + getAnswerOptions()[3]
+                        + "\n" + "Select your answer !!"
+        );
     }
 }

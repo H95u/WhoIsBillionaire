@@ -1,3 +1,7 @@
+package service;
+
+import model.Question;
+
 import java.util.*;
 
 public class QuestionDisplayHelper {
@@ -5,15 +9,6 @@ public class QuestionDisplayHelper {
 
     static {
         createHelpList();
-    }
-
-    public static void displayQuestion(Question question, int index) {
-        System.out.printf("%s\n%s%-20s%s\n%s%-20s%s\n",
-                "Question " + (index + 1) + " : " + question.getQuestionTitle() + " ? ",
-                "1." + question.getAnswerOptions()[0], "", "2." + question.getAnswerOptions()[1],
-                "3." + question.getAnswerOptions()[2], "", "4." + question.getAnswerOptions()[3]
-                        + "\n" + "Select your answer !!"
-        );
     }
 
     public static void displayQuestionUseHelp(Question question) {

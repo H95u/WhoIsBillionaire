@@ -1,3 +1,8 @@
+package service;
+
+import model.Account;
+import model.ValidateData;
+
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -51,6 +56,7 @@ public class AccountManage implements IOFileInterface<Account> {
         Account account = new Account(id, userName, passWord, phoneNumber, email);
         accounts.add(account);
         writeFile(accounts, accountPath);
+        System.out.println("You have successfully created an account");
         return account;
     }
 
@@ -136,12 +142,15 @@ public class AccountManage implements IOFileInterface<Account> {
         boolean checkLogin;
         String userName;
         String passWord;
+        int count = 0;
         do {
+            count++;
             System.out.println("Enter your username");
             userName = scanner.nextLine();
             System.out.println("Enter your password");
             passWord = scanner.nextLine();
             checkLogin = checkLogin(userName, passWord);
+            if (count == 3) break;
             if (checkLogin) {
                 System.out.println("Login success !! Welcome " + userName);
             } else {
