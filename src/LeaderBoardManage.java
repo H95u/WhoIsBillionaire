@@ -28,7 +28,7 @@ public class LeaderBoardManage implements IOFileInterface<LeaderBoard> {
     }
 
     public void showLeaderBoard() {
-        System.out.println("----------------- LEADER BOARD -----------------");
+        System.out.println("\033[31m----------------- LEADER BOARD -----------------\033[0m");
         System.out.printf("%-20s%-20s%-20s%n", "Name", "Score", "Money");
         for (LeaderBoard leaderBoard : leaderBoards) {
             leaderBoard.displayLeaderBoard();
