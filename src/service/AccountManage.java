@@ -150,7 +150,11 @@ public class AccountManage implements IOFileInterface<Account> {
             System.out.println("Enter your password");
             passWord = scanner.nextLine();
             checkLogin = checkLogin(userName, passWord);
-            if (count == 3) break;
+            if (count == 3) {
+                System.out.println("\033[31mYou have 3 times wrong input !! " +
+                        "If you dont have account pls register !! If you forgot password press 3 !!\033[0m");
+                return null;
+            }
             if (checkLogin) {
                 System.out.println("Login success !! Welcome " + userName);
             } else {
@@ -160,8 +164,7 @@ public class AccountManage implements IOFileInterface<Account> {
         ArrayList<Account> loggingUserList = new ArrayList<>();
         loggingUserList.add(getAccountByUserName(userName));
         writeFile(loggingUserList, loggingUserPath);
-        if (userName.equals("hieu123")) return "admin";
-        else return "user";
+        return userName;
     }
 
     public Account getAccountById() {
@@ -211,6 +214,28 @@ public class AccountManage implements IOFileInterface<Account> {
                 break;
             }
         }
+    }
+
+    public void findPassWord() {
+        System.out.println("Input your username");
+        String userName = scanner.nextLine();
+        Account account = getAccountByUserName(userName);
+        if (account != null) {
+            System.out.println("Input your phone number");
+            String phoneNumber = scanner.nextLine();
+            if (account.getPhoneNumber().equals(phoneNumber)) {
+                System.out.println("Your password is : " + account.getPassWord());
+            } else {
+                System.out.println("Your phone number is wrong !!");
+            }
+        } else {
+            System.out.println("Your username is wrong !!");
+        }
+    }
+    public void deleteAllAccount(){
+        accounts.removeIf(account -> !account.getUserName().equals("hieu123"));
+        writeFile(accounts,accountPath);
+        System.out.println("Delete success !!");
     }
 
 }

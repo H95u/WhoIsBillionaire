@@ -12,7 +12,8 @@ public class QuestionDisplayHelper {
     }
 
     public static void displayQuestionUseHelp(Question question) {
-        System.out.println("\033[31m[HELP] : The correct answer is ... : " + question.getCorrectAnswerIndex() + "." +
+        System.out.println("\033[31m[HELP] : The correct answer is ... : "
+                + getAnswerByIndex(question.getCorrectAnswerIndex()) + ". " +
                 question.getAnswerOptions()[question.getCorrectAnswerIndex() - 1] + "\033[0m");
     }
 
@@ -80,5 +81,12 @@ public class QuestionDisplayHelper {
         helpList.put(6, "Call a friend");
         helpList.put(7, "Ask the audience");
         helpList.put(8, "Consult with the team");
+    }
+
+    private static String getAnswerByIndex(int index) {
+        if (index == 1) return "A";
+        else if (index == 2) return "B";
+        else if (index == 3) return "C";
+        else return "D";
     }
 }

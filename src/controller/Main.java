@@ -57,6 +57,8 @@ public class Main {
             System.out.println("4.display all question");
             System.out.println("5.display all account");
             System.out.println("6.Clear leader board");
+            System.out.println("7.Show leader board");
+            System.out.println("8.Remove all account");
             System.out.println("0.Log out");
             System.out.println("PLS SELECT YOUR CHOICE!!");
             try {
@@ -84,6 +86,12 @@ public class Main {
                 case 6:
                     leaderBoardManage.resetLeaderBoard();
                     break;
+                case 7:
+                    leaderBoardManage.showLeaderBoard();
+                    break;
+                case 8:
+                    accountManage.deleteAllAccount();
+                    break;
                 case 0:
                     choice = 0;
                     break;
@@ -103,6 +111,7 @@ public class Main {
             System.out.println("-------- MENU ---------");
             System.out.println("1. Register");
             System.out.println("2. Login");
+            System.out.println("3. Forgot password");
             System.out.println("0. Exit");
             System.out.println("PLS SELECT YOUR CHOICE!!");
             try {
@@ -116,9 +125,13 @@ public class Main {
                     accountManage.createAccount();
                     break;
                 case 2:
-                    String permission = accountManage.login();
-                    if (permission.equals("admin")) adminMenu(accountManage, questionManage, leaderBoardManage);
+                    String userName = accountManage.login();
+                    if (userName == null) main(args);
+                    else if (userName.equals("hieu123")) adminMenu(accountManage, questionManage, leaderBoardManage);
                     else userMenu(questionManage, accountManage, leaderBoardManage);
+                    break;
+                case 3:
+                    accountManage.findPassWord();
                     break;
                 case 0:
                     System.exit(0);

@@ -55,16 +55,16 @@ public class Question implements Serializable {
 
     @Override
     public String toString() {
-        return "Question : " + id + "," +
+        return "Question " + id + ": " +
                 questionTitle;
     }
 
     public void displayQuestion(int index) {
         System.out.printf("%s\n%s%-20s%s\n%s%-20s%s\n",
                 "Question " + (index + 1) + " : " + getQuestionTitle() + " ? ",
-                "1." + getAnswerOptions()[0], "", "2." + getAnswerOptions()[1],
-                "3." + getAnswerOptions()[2], "", "4." + getAnswerOptions()[3]
-                        + "\n" + "Select your answer !!"
+                "A. " + getAnswerOptions()[0], "", "B. " + getAnswerOptions()[1],
+                "C. " + getAnswerOptions()[2], "", "D. " + getAnswerOptions()[3]
+                        + "\n" + "\033[31mSelect your answer !! Press 9 to stop playing!!\033[0m"
         );
     }
 }

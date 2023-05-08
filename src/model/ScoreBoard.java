@@ -15,11 +15,12 @@ public class ScoreBoard {
 
     public void resetScore() {
         currentScore = 0;
+        money = 0;
     }
 
     public void updateScore(double money) {
         currentScore += 1;
-        this.money += money;
+        this.money = money;
     }
 
     public double getMoney() {

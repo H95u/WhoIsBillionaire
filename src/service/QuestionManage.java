@@ -111,6 +111,7 @@ public class QuestionManage implements IOFileInterface<Question> {
     }
 
     public void displayAllQuestion() {
+        System.out.println("\033[31mTotal question : " + questions.size() + "\033[0m");
         for (Question question : questions) {
             System.out.println(question);
         }
