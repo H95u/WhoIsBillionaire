@@ -87,6 +87,7 @@ public class Main {
                     leaderBoardManage.resetLeaderBoard();
                     break;
                 case 7:
+                    leaderBoardManage.sortLeaderBoard();
                     leaderBoardManage.showLeaderBoard();
                     break;
                 case 8:
@@ -126,9 +127,10 @@ public class Main {
                     break;
                 case 2:
                     String userName = accountManage.login();
-                    if (userName == null) main(args);
-                    else if (userName.equals("hieu123")) adminMenu(accountManage, questionManage, leaderBoardManage);
-                    else userMenu(questionManage, accountManage, leaderBoardManage);
+                    if (userName != null) {
+                        if (userName.equals("hieu123")) adminMenu(accountManage, questionManage, leaderBoardManage);
+                        else userMenu(questionManage, accountManage, leaderBoardManage);
+                    }
                     break;
                 case 3:
                     accountManage.findPassWord();
